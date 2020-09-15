@@ -1,0 +1,7 @@
+C:\Users\320106573\source\repos\CaseStudy\Receiver\bin\Debug\Receiver.exe.config
+C:\Users\320106573\source\repos\CaseStudy\Receiver\bin\Debug\Receiver.exe
+C:\Users\320106573\source\repos\CaseStudy\Receiver\bin\Debug\Receiver.pdb
+C:\Users\320106573\source\repos\CaseStudy\Receiver\obj\Debug\Receiver.csprojAssemblyReference.cache
+C:\Users\320106573\source\repos\CaseStudy\Receiver\obj\Debug\Receiver.csproj.CoreCompileInputs.cache
+C:\Users\320106573\source\repos\CaseStudy\Receiver\obj\Debug\Receiver.exe
+C:\Users\320106573\source\repos\CaseStudy\Receiver\obj\Debug\Receiver.pdb

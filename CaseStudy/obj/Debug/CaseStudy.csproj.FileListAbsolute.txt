@@ -1,0 +1,7 @@
+C:\Users\320106573\source\repos\CaseStudy\CaseStudy\bin\Debug\CaseStudy.exe.config
+C:\Users\320106573\source\repos\CaseStudy\CaseStudy\bin\Debug\CaseStudy.exe
+C:\Users\320106573\source\repos\CaseStudy\CaseStudy\bin\Debug\CaseStudy.pdb
+C:\Users\320106573\source\repos\CaseStudy\CaseStudy\obj\Debug\CaseStudy.csprojAssemblyReference.cache
+C:\Users\320106573\source\repos\CaseStudy\CaseStudy\obj\Debug\CaseStudy.csproj.CoreCompileInputs.cache
+C:\Users\320106573\source\repos\CaseStudy\CaseStudy\obj\Debug\CaseStudy.exe
+C:\Users\320106573\source\repos\CaseStudy\CaseStudy\obj\Debug\CaseStudy.pdb

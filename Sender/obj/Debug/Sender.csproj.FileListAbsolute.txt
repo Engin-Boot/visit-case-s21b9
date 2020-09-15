@@ -1,0 +1,7 @@
+C:\Users\320106573\source\repos\CaseStudy\Sender\bin\Debug\Sender.exe.config
+C:\Users\320106573\source\repos\CaseStudy\Sender\bin\Debug\Sender.exe
+C:\Users\320106573\source\repos\CaseStudy\Sender\bin\Debug\Sender.pdb
+C:\Users\320106573\source\repos\CaseStudy\Sender\obj\Debug\Sender.csprojAssemblyReference.cache
+C:\Users\320106573\source\repos\CaseStudy\Sender\obj\Debug\Sender.csproj.CoreCompileInputs.cache
+C:\Users\320106573\source\repos\CaseStudy\Sender\obj\Debug\Sender.exe
+C:\Users\320106573\source\repos\CaseStudy\Sender\obj\Debug\Sender.pdb
