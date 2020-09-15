@@ -10,8 +10,12 @@ namespace Receiver
     {
         static void Main(string[] args)
         {
-            string input = Console.ReadLine();
-            Console.WriteLine(input.ToUpper());
+            for (int i = 0; i < 10; i++)
+            {
+                string input = Console.ReadLine();
+                Console.WriteLine(input.ToUpper());
+            }
+            
         }
     }
 }
