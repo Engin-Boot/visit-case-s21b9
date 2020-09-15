@@ -1,5 +1,5 @@
 pushd "%~dp0"
 
-checker.exe
+Receiver\bin\Debug\Receiver.exe | Sender\bin\Debug\Sender.exe
 
 popd
