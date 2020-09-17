@@ -174,7 +174,7 @@ namespace Sender
         static void Main()
         {
             Program pobj = new Program();
-            string filepath = @"C:\Users\320087363\visit-case-s21b9\Sender\TestDataFiles\Visit-record-inputs.csv";
+            string filepath = @"D:\a\visit-case-s21b9\visit-case-s21b9\Sender\TestDataFiles\Visit-record-inputs.csv";
             pobj.WriteFileContentsToConsole(filepath);
             //Console.ReadKey();
         }
