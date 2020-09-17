@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Receiver
 {
@@ -10,12 +11,19 @@ namespace Receiver
     {
         static void Main(string[] args)
         {
-            for (int i = 0; i < 10; i++)
+            string input;
+            string json = "";
+            while ((input = Console.ReadLine()) != null)
             {
-                string input = Console.ReadLine();
-                Console.WriteLine(input.ToUpper());
+                json += input;
             }
-            
+            Dictionary<string, List<string>> newDictionary =
+                JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(json);
+            foreach (var VARIABLE in newDictionary)
+            {
+                Console.WriteLine(VARIABLE.Key + "->" + string.Join(",", VARIABLE.Value));
+            }
+
         }
     }
 }
