@@ -11,11 +11,7 @@ namespace Sender
 {
     class Program
     {
-        //Sends a message to the console for the error while reading the file
-        public void SendErrorMessage(string message)
-        {
-            Console.WriteLine(message);
-        }
+        private Dictionary<string, List<string>> dataDictionary = new Dictionary<string, List<string>>();
 
         //Check if the file exists or the path to the file is correct
         public bool CheckIfFileExists(string filepath)
@@ -24,7 +20,7 @@ namespace Sender
             {
                 return true;
             }
-            SendErrorMessage("The File-> " + filepath + " Does Not Exists");
+            WriteErrorMessageToDictionary("The File-> " + filepath + " Does Not Exists");
             return false;
         }
 
@@ -37,7 +33,7 @@ namespace Sender
                 {
                     return true;
                 }
-                SendErrorMessage("The File-> " + filepath + " Does Not Have A Valid Extension");
+                WriteErrorMessageToDictionary("The File-> " + filepath + " Does Not Have A Valid Extension");
             }
             return false;
         }
@@ -49,7 +45,7 @@ namespace Sender
             {
                 if (new FileInfo(filepath).Length == 0)
                 {
-                    SendErrorMessage("The File-> " + filepath + " Is Empty");
+                    WriteErrorMessageToDictionary("The File-> " + filepath + " Is Empty");
                     return true;
                 }
 
@@ -71,7 +67,7 @@ namespace Sender
                 }
                 catch (IOException)
                 {
-                    SendErrorMessage("The File-> " + filepath + " Is Being Used By Another Process");
+                    WriteErrorMessageToDictionary("The File-> " + filepath + " Is Being Used By Another Process");
                     return true;
                 }
             }
@@ -90,7 +86,7 @@ namespace Sender
             }
             else
             {
-                SendErrorMessage("Invalid Date -> " + value);
+                WriteErrorMessageToDictionary("Invalid Date -> " + value);
                 return false;
             }
         }
@@ -107,7 +103,7 @@ namespace Sender
             }
             else
             {
-                SendErrorMessage("Invalid Time -> " + value);
+                WriteErrorMessageToDictionary("Invalid Time -> " + value);
                 return false;
             }
 
@@ -125,10 +121,10 @@ namespace Sender
         }
 
         //Read the csv file and send to the receiver
-        public string FileReader(string filepath)
+        public void FileReader(string filepath)
         {
             //Perform the read operation
-            Dictionary<string, List<string>> dataDictionary = new Dictionary<string, List<string>>();
+
             using (StreamReader streamReader = new StreamReader(filepath))
             {
                 while (!streamReader.EndOfStream)
@@ -140,42 +136,66 @@ namespace Sender
                     string rowindex = columns[0];
                     if (!CheckIfAnyRowHasIncompleteData(date, time))
                     {
-                        if (dataDictionary.ContainsKey(date))
-                        {
-                            dataDictionary[date].Add(time);
-                        }
-                        else
-                        {
-                            dataDictionary.Add(date, new List<string>());
-                            dataDictionary[date].Add(time);
-                        }
+                        WriteDataToDictionary(date, time);
                     }
                     else
                     {
-                        SendErrorMessage("Data is incomplete at row index -> " + rowindex);
+                        WriteErrorMessageToDictionary("Data is incomplete at row index :- " + rowindex);
                     }
                 }
             }
-            string jsondata = JsonConvert.SerializeObject(dataDictionary, Formatting.Indented);
-            return jsondata;
         }
 
-        //Writes the contents of the csv file to the console
+        //Add the contents of the csv file to the dictionary
+        public void WriteDataToDictionary(string date, string time)
+        {
+            if (dataDictionary.ContainsKey(date))
+            {
+                dataDictionary[date].Add(time);
+            }
+            else
+            {
+                dataDictionary.Add(date, new List<string>());
+                dataDictionary[date].Add(time);
+            }
+        }
+
+        //Writes a message to the console for the error while reading the file
+        public void WriteErrorMessageToDictionary(string message)
+        {
+            if (dataDictionary.ContainsKey("Error"))
+            {
+                dataDictionary["Error"].Add(message);
+            }
+            else
+            {
+                dataDictionary.Add("Error", new List<string>() { message });
+            }
+        }
+
+        //Serialize dictionary object to json string and write it on the console
         public void WriteFileContentsToConsole(string filepath)
         {
-
+            string senderData;
             if (!CheckIfFileIsInUse(filepath))
             {
-                string senderData = FileReader(filepath);
-                Console.WriteLine(senderData);
+                //In case of sending data or errors or both
+                FileReader(filepath);
+                senderData = JsonConvert.SerializeObject(dataDictionary, Formatting.Indented);
             }
+            else
+            {
+                //In case of sending only errors
+                senderData = JsonConvert.SerializeObject(dataDictionary, Formatting.Indented);
+            }
+            Console.WriteLine(senderData);
         }
 
         static void Main()
         {
-            Program pobj = new Program();
-            string filepath = @"C:\Users\320087363\visit-case-s21b9\Sender\TestDataFiles\Visit-record-inputs.csv";
-            pobj.WriteFileContentsToConsole(filepath);
+            Program senderObj = new Program();
+            string filepath = @"D:\a\visit-case-s21b9\visit-case-s21b9\Sender\TestDataFiles\Visit-record-inputs.csv";
+            senderObj.WriteFileContentsToConsole(filepath);
             //Console.ReadKey();
         }
     }

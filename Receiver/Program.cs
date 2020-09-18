@@ -17,11 +17,19 @@ namespace Receiver
             {
                 json += input;
             }
-            Dictionary<string, List<string>> newDictionary =
-                JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(json);
-            foreach (var VARIABLE in newDictionary)
+            try
             {
-                Console.WriteLine(VARIABLE.Key + "->" + string.Join(",", VARIABLE.Value));
+                Dictionary<string, List<string>> newDictionary =
+                    JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(json);
+                foreach (var VARIABLE in newDictionary)
+                {
+                    Console.WriteLine(VARIABLE.Key + "->" + string.Join(",", VARIABLE.Value));
+                }
+            }
+            catch(Exception)
+            {
+                //Handles the error messages from the sender
+                Console.WriteLine("Some error occured from sender's side");
             }
 
         }
