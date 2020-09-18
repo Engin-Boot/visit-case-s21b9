@@ -78,27 +78,30 @@ namespace Sender
         //Check if the datetime is valid and has valid format
         public bool CheckIfDateTimeIsValidAndHasValidFormat(string value)
         {
-            string[] columns = value.Split(',');
-            string datetime = columns[2] + " " + columns[1];
-            DateTime parsedTime;
-            string[] formats = { "dd-MM-yyyy HH:mm:ss", "d-MM-yyyy H:mm:ss" };
-            var isValidFormat = DateTime.TryParseExact(datetime, formats, new CultureInfo("en-GB"), DateTimeStyles.None, out parsedTime);
-            if (isValidFormat)
+            if (!CheckIfAnyRowHasIncompleteData(value))
             {
+                string[] columns = value.Split(',');
+                string datetime = columns[2] + " " + columns[1];
+                DateTime parsedTime;
+                string[] formats = { "dd-MM-yyyy HH:mm:ss", "d-MM-yyyy H:mm:ss" };
+                var isValidFormat = DateTime.TryParseExact(datetime, formats, new CultureInfo("en-GB"),
+                    DateTimeStyles.None, out parsedTime);
+                if (!isValidFormat)
+                {
+                    WriteErrorMessageToDictionary("Invalid DateTime Format -> " + datetime + " at row index -> " +
+                                                  columns[0]);
+                    return false;
+                }
+
                 return true;
             }
-            else
-            {
-                WriteErrorMessageToDictionary("Invalid DateTime Format -> " + datetime + " at row index -> " + columns[0]);
-                return false;
-            }
-
+            return false;
         }
 
-         //Check if any row has incomplete data
+        //Check if any row has incomplete data
         public bool CheckIfAnyRowHasIncompleteData(string output)
         {
-            string[] columns = output.Split(','); 
+            string[] columns = output.Split(',');
             if (columns[1] == "" | columns[2] == "")
             {
                 WriteErrorMessageToDictionary("Data is incomplete at row index :- " + columns[0]);
@@ -114,18 +117,16 @@ namespace Sender
 
             using (StreamReader streamReader = new StreamReader(filepath))
             {
+                streamReader.ReadLine();
                 while (!streamReader.EndOfStream)
                 {
                     string output = streamReader.ReadLine();
                     string[] columns = output.Split(',');
                     string date = columns[2];
                     string time = columns[1];
-                    if (!CheckIfAnyRowHasIncompleteData(output))
+                    if (CheckIfDateTimeIsValidAndHasValidFormat(output))
                     {
-                        if (CheckIfDateTimeIsValidAndHasValidFormat(output))
-                        {
-                            WriteDataToDictionary(date, time);
-                        }
+                        WriteDataToDictionary(date, time);
                     }
                 }
             }
@@ -182,7 +183,6 @@ namespace Sender
             Program senderObj = new Program();
             string filepath = @"D:\a\visit-case-s21b9\visit-case-s21b9\Sender\TestDataFiles\Visit-record-inputs.csv";
             senderObj.WriteFileContentsToConsole(filepath);
-            //Console.ReadKey();
         }
     }
 }
