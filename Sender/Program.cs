@@ -75,36 +75,21 @@ namespace Sender
             return true;
         }
 
-        //Check if the date is valid and has a valid format
-        public bool CheckIfDateIsValidAndHasValidFormat(string value)
+        //Check if the datetime is valid and has valid format
+        public bool CheckIfDateTimeIsValidAndHasValidFormat(string value)
         {
-            string[] formats = { "d/MM/yyyy", "dd/MM/yyyy", "dd-MM-yyyy", "dd.MM.yyyy" };
-            DateTime parsedDate;
-            var isValidFormat = DateTime.TryParseExact(value, formats, new CultureInfo("en-US"), DateTimeStyles.None, out parsedDate);
-            if (isValidFormat)
-            {
-                return true;
-            }
-            else
-            {
-                WriteErrorMessageToDictionary("Invalid Date -> " + value);
-                return false;
-            }
-        }
-
-        //Check if the time is valid and has valid format
-        public bool CheckIfTimeIsValidAndHasValidFormat(string value)
-        {
-            string[] formats = { "hh:mm:ss" };
+            string[] columns = value.Split(',');
+            string datetime = columns[2] + " " + columns[1];
             DateTime parsedTime;
-            var isValidFormat = DateTime.TryParseExact(value, formats, new CultureInfo("en-US"), DateTimeStyles.None, out parsedTime);
+            string[] formats = { "dd-MM-yyyy HH:mm:ss", "d-MM-yyyy H:mm:ss" };
+            var isValidFormat = DateTime.TryParseExact(datetime, formats, new CultureInfo("en-GB"), DateTimeStyles.None, out parsedTime);
             if (isValidFormat)
             {
                 return true;
             }
             else
             {
-                WriteErrorMessageToDictionary("Invalid Time -> " + value);
+                WriteErrorMessageToDictionary("Invalid DateTime Format -> " + datetime + " at row index -> " + columns[0]);
                 return false;
             }
 
@@ -137,7 +122,10 @@ namespace Sender
                     string time = columns[1];
                     if (!CheckIfAnyRowHasIncompleteData(output))
                     {
-                        WriteDataToDictionary(date, time);
+                        if (CheckIfDateTimeIsValidAndHasValidFormat(output))
+                        {
+                            WriteDataToDictionary(date, time);
+                        }
                     }
                 }
             }
