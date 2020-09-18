@@ -106,6 +106,33 @@ namespace SenderTest
             Assert.True(dateIsIncomplete);
             Assert.Equal(expectedMessage1, errorMessageFromSender);
         }
+        
+        public void WhenTheDateTimeIsNotValidThenReturnFalseAndSendErrorMessage()
+        {
+            Sender.Program sg = new Sender.Program();
+            //Passing condition
+            bool datetimeIsValid = sg.CheckIfDateTimeIsValidAndHasValidFormat("1,12:34:12,12-10-2020,");
+            string noErrorMessageFromSender = sg.message;
+            string expectedMessage = null;
+            Assert.True(datetimeIsValid);
+            Assert.Equal(expectedMessage, noErrorMessageFromSender);
+
+            //Failing condition1
+            bool datetimeIsNotValid1 = sg.CheckIfDateTimeIsValidAndHasValidFormat("1,12:34:12,12-20-2020");
+            string Invaliddatetime1 = "12-20-2020 12:34:12";
+            string errorMessageFromSender1 = sg.message;
+            string expectedMessage11 = "Invalid DateTime Format -> " + Invaliddatetime1 + " at row index -> 1";
+            Assert.False(datetimeIsNotValid1);
+            Assert.Equal(expectedMessage11, errorMessageFromSender1);
+
+            //Failing condition2
+            bool datetimeIsNotValid2 = sg.CheckIfDateTimeIsValidAndHasValidFormat("1,12:67:12,12-10-2020");
+            string Invaliddatetime2 = "12-10-2020 12:67:12";
+            string errorMessageFromSender2 = sg.message;
+            string expectedMessage12 = "Invalid DateTime Format -> " + Invaliddatetime2 + " at row index -> 1";
+            Assert.False(datetimeIsNotValid2);
+            Assert.Equal(expectedMessage12, errorMessageFromSender2);
+        }
 
         static void Main(string[] args)
         {
@@ -115,6 +142,7 @@ namespace SenderTest
           testSenderData.WhenFileIsEmptyThenReturnTrueAndSendErrorMessage();
           testSenderData.WhenFileIsUnavailableForUseThenReturnTrueAndSendErrorMessage();
           testSenderData.WhenAnyRowIsIncompleteThenReturnTrueAndSendErrorMessage();
+          testSenderData.WhenTheDateTimeIsNotValidThenReturnFalseAndSendErrorMessage();
         }
     }
 }
