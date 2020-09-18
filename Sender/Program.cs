@@ -12,6 +12,7 @@ namespace Sender
     class Program
     {
         private Dictionary<string, List<string>> dataDictionary = new Dictionary<string, List<string>>();
+        public string message;
 
         //Check if the file exists or the path to the file is correct
         public bool CheckIfFileExists(string filepath)
@@ -109,14 +110,15 @@ namespace Sender
 
         }
 
-        //Check if any row has incomplete data
-        public bool CheckIfAnyRowHasIncompleteData(string value1, string value2)
+         //Check if any row has incomplete data
+        public bool CheckIfAnyRowHasIncompleteData(string output)
         {
-            if (value1 == "" | value2 == "")
+            string[] columns = output.Split(','); 
+            if (columns[1] == "" | columns[2] == "")
             {
+                WriteErrorMessageToDictionary("Data is incomplete at row index :- " + columns[0]);
                 return true;
             }
-
             return false;
         }
 
@@ -133,14 +135,9 @@ namespace Sender
                     string[] columns = output.Split(',');
                     string date = columns[2];
                     string time = columns[1];
-                    string rowindex = columns[0];
-                    if (!CheckIfAnyRowHasIncompleteData(date, time))
+                    if (!CheckIfAnyRowHasIncompleteData(output))
                     {
                         WriteDataToDictionary(date, time);
-                    }
-                    else
-                    {
-                        WriteErrorMessageToDictionary("Data is incomplete at row index :- " + rowindex);
                     }
                 }
             }
@@ -163,6 +160,7 @@ namespace Sender
         //Writes a message to the console for the error while reading the file
         public void WriteErrorMessageToDictionary(string message)
         {
+            this.message = message;
             if (dataDictionary.ContainsKey("Error"))
             {
                 dataDictionary["Error"].Add(message);
