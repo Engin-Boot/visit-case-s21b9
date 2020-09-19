@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sender
 {
-    class Program
+    public class Program
     {
         private Dictionary<string, List<string>> dataDictionary = new Dictionary<string, List<string>>();
         public string message;
@@ -181,7 +181,8 @@ namespace Sender
         static void Main()
         {
             Program senderObj = new Program();
-            string filepath = @"D:\a\visit-case-s21b9\visit-case-s21b9\Sender\TestDataFiles\Visit-record-inputs.csv";
+            //string filepath = @"D:\a\visit-case-s21b9\visit-case-s21b9\Sender\TestDataFiles\Visit-record-inputs.csv";
+            string filepath = @"C:\Users\320106573\source\repos\CaseStudy\Sender\TestDataFiles\Visit-record-inputs.csv";
             senderObj.WriteFileContentsToConsole(filepath);
         }
     }

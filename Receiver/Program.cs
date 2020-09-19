@@ -26,7 +26,18 @@ namespace Receiver
                 Console.WriteLine("Some error occured from sender's side");
             }
 
-            Console.WriteLine(database.toString());
+            //Console.WriteLine(database.toString());
+            Console.WriteLine("Data populated");
+
+            double[] avgPerHour = database.averageFootfallPerHour();
+            
+            for(int i = 0; i < avgPerHour.Length; i++)
+            {
+                Console.WriteLine(i + " Hour" + avgPerHour[i]);
+            }
+
+            Console.WriteLine("Average per hour Found");
+
         }
     }
 }

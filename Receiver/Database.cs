@@ -9,9 +9,12 @@ namespace Receiver
 {
     public class Database
     {
+        #region Data Members
         Dictionary<string,Date> days;
         DateTime currentDate;
+        #endregion
 
+        #region Properties
         public DateTime CurrentDate
         {
             get
@@ -23,12 +26,17 @@ namespace Receiver
                 currentDate = value;
             }
         }
+        #endregion
 
+
+        #region Constructor
         public Database()
         {
             days = new Dictionary<string, Date>();
         }
+        #endregion
 
+        #region Methods 
         public void addDay(string s)
         {
             Date d = new Date(s);
@@ -90,7 +98,7 @@ namespace Receiver
                 {
                     addNewEntryToDate(values[i], VARIABLE.Key);
                 }
-                Console.WriteLine(VARIABLE.Key + "->" + string.Join(",", VARIABLE.Value));
+                //Console.WriteLine(VARIABLE.Key + "->" + string.Join(",", VARIABLE.Value));
                 lastDate = VARIABLE.Key;
             }
             try
@@ -115,6 +123,40 @@ namespace Receiver
             }
             return databaseString;
         }
+
+        public double [] getAverageOfAllArrays(int [][] arrays)
+        {
+            int len = arrays.Length;
+            double [] result = new double[24];
+            for(int i=0;i<len; i++)
+            {
+                for(int j = 0; j < arrays[i].Length; j++)
+                {
+                    result[j] += arrays[i][j];
+                }
+            }
+            for(int i = 0; i < 24; i++)
+            {
+                result[i] = (double)result[i] / (double)len;
+            }
+            return result;
+        }
+
+        public double [] averageFootfallPerHour()
+        {
+            int[][] last7days = getLast7DaysFootfall();
+            for(int i = 0; i < 7; i++)
+            {
+                for (int j = 0; j < 24; j++)
+                {
+                    Console.Write(last7days[i][j] + " ");
+                }
+                Console.WriteLine(" ");
+            }
+            double[] average = getAverageOfAllArrays(last7days);
+            return average;
+        }
+        #endregion
 
     }
 }

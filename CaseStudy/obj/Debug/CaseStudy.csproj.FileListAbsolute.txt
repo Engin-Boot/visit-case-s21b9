@@ -15,3 +15,6 @@ C:\Users\320087363\visit-case-s21b9\CaseStudy\obj\Debug\CaseStudy.csproj.CoreCom
 C:\Users\320087363\visit-case-s21b9\CaseStudy\obj\Debug\CaseStudy.csproj.CopyComplete
 C:\Users\320087363\visit-case-s21b9\CaseStudy\obj\Debug\CaseStudy.exe
 C:\Users\320087363\visit-case-s21b9\CaseStudy\obj\Debug\CaseStudy.pdb
+C:\Users\320106573\source\repos\CaseStudy\CaseStudy\bin\Debug\Newtonsoft.Json.dll
+C:\Users\320106573\source\repos\CaseStudy\CaseStudy\bin\Debug\Newtonsoft.Json.xml
+C:\Users\320106573\source\repos\CaseStudy\CaseStudy\obj\Debug\CaseStudy.csproj.CopyComplete
