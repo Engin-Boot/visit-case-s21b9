@@ -13,25 +13,20 @@ namespace Receiver
         {
             string input;
             string json = "";
+            Database database = new Database();
             while ((input = Console.ReadLine()) != null)
             {
                 json += input;
+                //Console.WriteLine(input + i++);
             }
-            try
+            int populationSuccess = database.populateDatabase(json);
+
+            if(populationSuccess == -1)
             {
-                Dictionary<string, List<string>> newDictionary =
-                    JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(json);
-                foreach (var VARIABLE in newDictionary)
-                {
-                    Console.WriteLine(VARIABLE.Key + "->" + string.Join(",", VARIABLE.Value));
-                }
-            }
-            catch(Exception)
-            {
-                //Handles the error messages from the sender
                 Console.WriteLine("Some error occured from sender's side");
             }
 
+            Console.WriteLine(database.toString());
         }
     }
 }
