@@ -17,3 +17,4 @@ C:\Users\320087363\visit-case-s21b9\Receiver\obj\Debug\Receiver.pdb
 C:\Users\320106573\source\repos\CaseStudy\Receiver\bin\Debug\Newtonsoft.Json.dll
 C:\Users\320106573\source\repos\CaseStudy\Receiver\bin\Debug\Newtonsoft.Json.xml
 C:\Users\320106573\source\repos\CaseStudy\Receiver\obj\Debug\Receiver.csproj.CopyComplete
+C:\Users\320106573\source\repos\CaseStudy\Receiver\obj\Debug\Receiver.csprojAssemblyReference.cache

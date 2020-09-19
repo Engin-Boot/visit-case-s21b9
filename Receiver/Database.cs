@@ -145,17 +145,11 @@ namespace Receiver
         public double [] averageFootfallPerHour()
         {
             int[][] last7days = getLast7DaysFootfall();
-            for(int i = 0; i < 7; i++)
-            {
-                for (int j = 0; j < 24; j++)
-                {
-                    Console.Write(last7days[i][j] + " ");
-                }
-                Console.WriteLine(" ");
-            }
             double[] average = getAverageOfAllArrays(last7days);
             return average;
         }
+
+
         #endregion
 
     }
