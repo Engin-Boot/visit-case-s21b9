@@ -186,14 +186,15 @@ namespace Receiver
             int NumberOfWeeks = 4;
             int[][] lastWeeks = getLastNWeeksFootfall(NumberOfWeeks);
             double[] dailyTotal = getDailyTotal(lastWeeks);
-            double [] average= new double[7];
+            int daysInWeek = 7;
+            double [] average= new double[daysInWeek];
 
             for(int i = 0; i < 7; i++)
             {
                 double sum = 0;
                 for(int j = 0; j< NumberOfWeeks; j++)
                 {
-                    sum += dailyTotal[i + (j * 7)];
+                    sum += dailyTotal[i + (j * daysInWeek)];
                 }
                 sum = sum / NumberOfWeeks;
                 average[i] = sum;
