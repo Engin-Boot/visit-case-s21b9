@@ -38,6 +38,18 @@ namespace Receiver
 
             Console.WriteLine("Average per hour Found");
 
+            double[] avgDailyFootfall = database.averagePerDayForWeek();
+            for (int i = 0; i < avgDailyFootfall.Length; i++)
+            {
+                Console.WriteLine(i + " Day " + avgDailyFootfall[i]);
+            }
+
+            Console.WriteLine("Average daily footfall per week Found");
+
+            int[] peakDaily = database.peakDailyFootfall();
+            Console.WriteLine("Peak daily footfall was " + peakDaily[0] + " '" + peakDaily[1] + "' days before");
+
+
         }
     }
 }

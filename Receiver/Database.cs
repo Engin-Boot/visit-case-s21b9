@@ -56,27 +56,41 @@ namespace Receiver
             }
         }
 
-        public int[][] getLast7DaysFootfall()
+        public int[][] getLastNWeeksFootfall(int N)
         {
-            int[][] lastWeek = new int[7][];
-            for(int i=1; i<=7; i++)
+            int days = N * 7;
+            if (days > 0)
             {
-                DateTime temp = currentDate.AddDays(-1*(i));
+                int[][] lastWeek = getLastNDaysFootfall(days);
+                return lastWeek;
+            }
+            int[][] err = new int[1][];
+            err[0] = new int[] { 1 };
+            return err;
+        }
+
+
+        public int[][] getLastNDaysFootfall(int N)
+        {
+            int[][] nDaysData = new int[N][];
+            for (int i = 0; i < N; i++)
+            {
+                DateTime temp = currentDate.AddDays(-1 * (i));
                 string d = temp.ToString("dd-MM-yyyy");
                 if (days.ContainsKey(d))
                 {
                     Date dateToGet = days[d];
-                    lastWeek[i-1] = dateToGet.TotalEveryHour;
+                    nDaysData[i] = dateToGet.TotalEveryHour;
                 }
                 else
                 {
                     int[] arr = new int[24];
-                    lastWeek[i - 1] = arr;
+                    nDaysData[i] = arr;
                 }
-                
+
             }
 
-            return lastWeek;
+            return nDaysData;
         }
 
         public int populateDatabase(string data)
@@ -144,12 +158,71 @@ namespace Receiver
 
         public double [] averageFootfallPerHour()
         {
-            int[][] last7days = getLast7DaysFootfall();
+            int[][] last7days = getLastNWeeksFootfall(1);
             double[] average = getAverageOfAllArrays(last7days);
             return average;
         }
 
+        public double[] getDailyTotal(int [][] arr)
+        {
+            double[] total = new double[arr.Length];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] == null)
+                {
+                    total[i] = 0;
+                }
+                else
+                {
+                    total[i] = arr[i].Sum();
+                }
+            }
+            return total;
+        }
 
+
+        public double [] averagePerDayForWeek()
+        {
+            int NumberOfWeeks = 4;
+            int[][] lastWeeks = getLastNWeeksFootfall(NumberOfWeeks);
+            double[] dailyTotal = getDailyTotal(lastWeeks);
+            double [] average= new double[7];
+
+            for(int i = 0; i < 7; i++)
+            {
+                double sum = 0;
+                for(int j = 0; j< NumberOfWeeks; j++)
+                {
+                    sum += dailyTotal[i + (j * 7)];
+                }
+                sum = sum / NumberOfWeeks;
+                average[i] = sum;
+            }
+
+            return average;
+
+        }
+
+        public int[] peakDailyFootfall()
+        {
+            int numDays = 30;
+            int[][] lastMonth = getLastNDaysFootfall(numDays);
+            double[] dailyTotal = getDailyTotal(lastMonth);
+            double max=dailyTotal[0];
+            int numberOfDaysBefore=0;
+            for (int i = 1; i < dailyTotal.Length; i++)
+            {
+                if (dailyTotal[i] > max)
+                {
+                    max = dailyTotal[i];
+                    numberOfDaysBefore = i;
+                }
+            }
+            int[] result = new int[2];
+            result[0] = (int) max;
+            result[1] = numberOfDaysBefore;
+            return result;
+        }
         #endregion
 
     }

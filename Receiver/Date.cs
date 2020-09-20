@@ -13,6 +13,7 @@ namespace Receiver
         DateTime date;
         Hour[] hourList;
         int[] totalEveryHour;
+        //int totalFootfall;
 
         #endregion
 
@@ -22,6 +23,7 @@ namespace Receiver
             get { return totalEveryHour; }
         }
         #endregion
+
         #region Constructor and initializations
 
         public Date (string d)
@@ -66,6 +68,7 @@ namespace Receiver
                 int h = newEntryTime.Hour;
                 hourList[h].addNewEntry(newEntry);
                 totalEveryHour[h] = hourList[h].TotalFootfall;
+                
             }
             catch (Exception e)
             {
