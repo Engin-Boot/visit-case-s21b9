@@ -142,7 +142,6 @@ namespace SenderExtendedFunc
 
         static void Main(string[] args)
         {
-            Console.ReadKey();
         }
     }
 }
