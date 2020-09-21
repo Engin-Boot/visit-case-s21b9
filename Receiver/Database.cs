@@ -10,7 +10,7 @@ namespace Receiver
     public class Database
     {
         #region Data Members
-        Dictionary<string,Date> days;
+        Dictionary<string, Date> days;
         DateTime currentDate;
         #endregion
 
@@ -40,7 +40,7 @@ namespace Receiver
         public void addDay(string s)
         {
             Date d = new Date(s);
-            days.Add(s,d);
+            days.Add(s, d);
         }
 
         public void addNewEntryToDate(string newEntry, string date)
@@ -104,33 +104,38 @@ namespace Receiver
             {
                 return -1;
             }
-            String lastDate="";
+            String lastDate = "";
             foreach (var VARIABLE in newDictionary)
             {
-                string [] values = VARIABLE.Value.ToArray();
-                for(int i = 0; i < values.Length; i++)
+                string[] values = VARIABLE.Value.ToArray();
+                for (int i = 0; i < values.Length; i++)
                 {
                     addNewEntryToDate(values[i], VARIABLE.Key);
                 }
                 //Console.WriteLine(VARIABLE.Key + "->" + string.Join(",", VARIABLE.Value));
                 lastDate = VARIABLE.Key;
             }
+            setCurrentDateAs(lastDate);
+            return 0;
+        }
+
+        public void setCurrentDateAs(string date)
+        {
             try
             {
-                currentDate = DateTime.ParseExact(lastDate, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                currentDate = DateTime.ParseExact(date, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
             }
             catch
             {
-                return 1;
+                Console.WriteLine("Error in parsing string to date");
             }
-            return 0;
         }
 
         public string toString()
         {
             String databaseString = "";
 
-            foreach(var item in days)
+            foreach (var item in days)
             {
                 Date t = item.Value;
                 databaseString += t.toString();
@@ -138,32 +143,29 @@ namespace Receiver
             return databaseString;
         }
 
-        public double [] getAverageOfAllArrays(int [][] arrays)
+        public double[] getAverageOfAllArrays(int[][] arrays)
         {
             int len = arrays.Length;
-            double [] result = new double[24];
-            for(int i=0;i<len; i++)
+            double[] result = new double[24];
+            for (int i = 0; i < len; i++)
             {
-                for(int j = 0; j < arrays[i].Length; j++)
+                for (int j = 0; j < arrays[i].Length; j++)
                 {
-                    result[j] += arrays[i][j];
+                    result[j] += (arrays[i][j] / (double)len);
                 }
             }
-            for(int i = 0; i < 24; i++)
-            {
-                result[i] = (double)result[i] / (double)len;
-            }
+
             return result;
         }
 
-        public double [] averageFootfallPerHour()
+        public double[] averageFootfallPerHour()
         {
             int[][] last7days = getLastNWeeksFootfall(1);
             double[] average = getAverageOfAllArrays(last7days);
             return average;
         }
 
-        public double[] getDailyTotal(int [][] arr)
+        public double[] getDailyTotal(int[][] arr)
         {
             double[] total = new double[arr.Length];
             for (int i = 0; i < arr.Length; i++)
@@ -181,18 +183,18 @@ namespace Receiver
         }
 
 
-        public double [] averagePerDayForWeek()
+        public double[] averagePerDayForWeek()
         {
             int NumberOfWeeks = 4;
             int[][] lastWeeks = getLastNWeeksFootfall(NumberOfWeeks);
             double[] dailyTotal = getDailyTotal(lastWeeks);
             int daysInWeek = 7;
-            double [] average= new double[daysInWeek];
+            double[] average = new double[daysInWeek];
 
-            for(int i = 0; i < 7; i++)
+            for (int i = 0; i < 7; i++)
             {
                 double sum = 0;
-                for(int j = 0; j< NumberOfWeeks; j++)
+                for (int j = 0; j < NumberOfWeeks; j++)
                 {
                     sum += dailyTotal[i + (j * daysInWeek)];
                 }
@@ -209,8 +211,8 @@ namespace Receiver
             int numDays = 30;
             int[][] lastMonth = getLastNDaysFootfall(numDays);
             double[] dailyTotal = getDailyTotal(lastMonth);
-            double max=dailyTotal[0];
-            int numberOfDaysBefore=0;
+            double max = dailyTotal[0];
+            int numberOfDaysBefore = 0;
             for (int i = 1; i < dailyTotal.Length; i++)
             {
                 if (dailyTotal[i] > max)
@@ -220,7 +222,7 @@ namespace Receiver
                 }
             }
             int[] result = new int[2];
-            result[0] = (int) max;
+            result[0] = (int)max;
             result[1] = numberOfDaysBefore;
             return result;
         }
