@@ -6,12 +6,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SenderExtendedFunc;
 
 namespace Sender
 {
     public class Program
     {
         private Dictionary<string, List<string>> dataDictionary = new Dictionary<string, List<string>>();
+        private Dictionary<string, List<string>> manualDictionary = new Dictionary<string, List<string>>();
         public string message;
 
         //Check if the file exists or the path to the file is correct
@@ -111,7 +113,7 @@ namespace Sender
         }
 
         //Read the csv file and send to the receiver
-        public void FileReader(string filepath)
+        public void FileReader(string filepath, bool IsManualData)
         {
             //Perform the read operation
 
@@ -126,14 +128,43 @@ namespace Sender
                     string time = columns[1];
                     if (CheckIfDateTimeIsValidAndHasValidFormat(output))
                     {
-                        WriteDataToDictionary(date, time);
+                        WriteDataToDictionary(date, time, IsManualData);
                     }
+
                 }
             }
         }
 
         //Add the contents of the csv file to the dictionary
-        public void WriteDataToDictionary(string date, string time)
+        public void WriteDataToDictionary(string date, string time, bool IsManualData)
+        {
+            if (IsManualData == true)
+            {
+                WriteManualDataToDictionary(date, time);
+            }
+            else
+            {
+                WriteSensorDataToDictionary(date, time);
+
+            }
+        }
+
+        //Writes the manual data to the manual dictionary
+        public void WriteManualDataToDictionary(string date, string time)
+        {
+            if (manualDictionary.ContainsKey(date))
+            {
+                manualDictionary[date].Add(time);
+            }
+            else
+            {
+                manualDictionary.Add(date, new List<string>());
+                manualDictionary[date].Add(time);
+            }
+        }
+
+        //Writes the sensor data to the data dictionary
+        public void WriteSensorDataToDictionary(string date, string time)
         {
             if (dataDictionary.ContainsKey(date))
             {
@@ -167,7 +198,6 @@ namespace Sender
             if (!CheckIfFileIsInUse(filepath))
             {
                 //In case of sending data or errors or both
-                FileReader(filepath);
                 senderData = JsonConvert.SerializeObject(dataDictionary, Formatting.Indented);
             }
             else
@@ -176,14 +206,37 @@ namespace Sender
                 senderData = JsonConvert.SerializeObject(dataDictionary, Formatting.Indented);
             }
             Console.WriteLine(senderData);
+
         }
 
         static void Main()
         {
             Program senderObj = new Program();
-            string filepath = @"D:\a\visit-case-s21b9\visit-case-s21b9\Sender\TestDataFiles\Visit-record-inputs.csv";
-            //string filepath = @"C:\Users\320106573\source\repos\CaseStudy\Sender\TestDataFiles\Visit-record-inputs.csv";
-            senderObj.WriteFileContentsToConsole(filepath);
+
+            string filepathForActualData = @"C:\Users\320087363\visit-case-s21b9\Sender\TestDataFiles\Visit-record-inputs.csv";
+            //string filepathForActualData = @"D:\a\visit-case-s21b9\visit-case-s21b9\Sender\TestDataFiles\Visit-record-inputs.csv";
+            senderObj.FileReader(filepathForActualData, false);
+            Dictionary<string, List<string>> returnDataDictionary = senderObj.dataDictionary;
+
+            string filepathForManualData = @"C:\Users\320087363\visit-case-s21b9-backup2\Sender\TestDataFiles\Manual-visit-record2.csv";
+            //string filepathForManualData = @"D:\a\visit-case-s21b9\visit-case-s21b9\Sender\TestDataFiles\Manual-visit-record.csv";
+            senderObj.FileReader(filepathForManualData, true);
+            Dictionary<string, List<string>> returnManualDictionary = senderObj.manualDictionary;
+
+            Extendedfunc extendedFunc = new Extendedfunc(returnDataDictionary, returnManualDictionary);
+            extendedFunc.SendListOfHoursToCheckForMalfunctionality();
+
+            bool isMalfunctioned = extendedFunc.IsMalfunctioned;
+
+            if (!isMalfunctioned)
+            {
+                senderObj.WriteFileContentsToConsole(filepathForActualData);
+            }
+            else
+            {
+                extendedFunc.WriteFileContentsToConsole();
+            }
+            Console.ReadKey();
         }
     }
 }
