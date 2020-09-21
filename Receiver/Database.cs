@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace Receiver
@@ -11,23 +9,20 @@ namespace Receiver
     {
         #region Data Members
         Dictionary<string, Date> days;
-        DateTime currentDate;
+        DateTime _currentDate;
         #endregion
 
+        /*
         #region Properties
         public DateTime CurrentDate
         {
             get
             {
-                return currentDate;
-            }
-            set
-            {
-                currentDate = value;
+                return _currentDate;
             }
         }
         #endregion
-
+        */
 
         #region Constructor
         public Database()
@@ -75,7 +70,7 @@ namespace Receiver
             int[][] nDaysData = new int[N][];
             for (int i = 0; i < N; i++)
             {
-                DateTime temp = currentDate.AddDays(-1 * (i));
+                DateTime temp = _currentDate.AddDays(-1 * (i));
                 string d = temp.ToString("dd-MM-yyyy");
                 if (days.ContainsKey(d))
                 {
@@ -123,7 +118,7 @@ namespace Receiver
         {
             try
             {
-                currentDate = DateTime.ParseExact(date, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                _currentDate = DateTime.ParseExact(date, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
             }
             catch
             {
