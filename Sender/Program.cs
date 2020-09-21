@@ -212,14 +212,12 @@ namespace Sender
         static void Main()
         {
             Program senderObj = new Program();
-
-            string filepathForActualData = @"C:\Users\320087363\visit-case-s21b9\Sender\TestDataFiles\Visit-record-inputs.csv";
-            //string filepathForActualData = @"D:\a\visit-case-s21b9\visit-case-s21b9\Sender\TestDataFiles\Visit-record-inputs.csv";
+            
+            string filepathForActualData = @"D:\a\visit-case-s21b9\visit-case-s21b9\Sender\TestDataFiles\Visit-record-inputs.csv";
             senderObj.FileReader(filepathForActualData, false);
             Dictionary<string, List<string>> returnDataDictionary = senderObj.dataDictionary;
-
-            string filepathForManualData = @"C:\Users\320087363\visit-case-s21b9-backup2\Sender\TestDataFiles\Manual-visit-record2.csv";
-            //string filepathForManualData = @"D:\a\visit-case-s21b9\visit-case-s21b9\Sender\TestDataFiles\Manual-visit-record.csv";
+            
+            string filepathForManualData = @"D:\a\visit-case-s21b9\visit-case-s21b9\Sender\TestDataFiles\Manual-visit-record.csv";
             senderObj.FileReader(filepathForManualData, true);
             Dictionary<string, List<string>> returnManualDictionary = senderObj.manualDictionary;
 
@@ -236,7 +234,6 @@ namespace Sender
             {
                 extendedFunc.WriteFileContentsToConsole();
             }
-            Console.ReadKey();
         }
     }
 }
