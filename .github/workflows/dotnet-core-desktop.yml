@@ -125,3 +125,5 @@ jobs:
       shell: cmd
       run: call run.bat 
       
+    - name: Run unit tests
+      run: dotnet test --no-build --configuration Release
