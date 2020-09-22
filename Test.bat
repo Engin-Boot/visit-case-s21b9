@@ -1,5 +1,5 @@
 pushd "%~dp0"
 
-SenderTest\bin\Debug\Sender.exe
+SenderTest\bin\Debug\SenderTest.exe
 
 popd
