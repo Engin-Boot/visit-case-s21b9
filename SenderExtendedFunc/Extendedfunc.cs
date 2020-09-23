@@ -31,7 +31,7 @@ namespace SenderExtendedFunc
                 else
                 {
                     this.IsMalfunctioned = true;
-                    SendAlarmOnMalfunction("Sensor is malfunctioning for the whole day on " + variable.Key + " hence reconciling data from manual log");
+                    //SendAlarmOnMalfunction("Sensor is malfunctioning for the whole day on " + variable.Key + " hence reconciling data from manual log");
                     ReconcileDataForWholeDay(variable.Key, variable.Value, count);
                 }
             }
@@ -83,8 +83,7 @@ namespace SenderExtendedFunc
                 }
                 else
                 {
-                    SendAlarmOnMalfunction("The sensor is malfunctioning at " + timeFromManual +
-                                      " hence reconciling the data from manual log");
+                    //SendAlarmOnMalfunction("The sensor is malfunctioning at " + timeFromManual + " hence reconciling the data from manual log");
                     return true;
                 }
             }
