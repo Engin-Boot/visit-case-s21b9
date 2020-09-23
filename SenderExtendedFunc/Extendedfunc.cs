@@ -7,8 +7,8 @@ namespace SenderExtendedFunc
 {
     public class Extendedfunc
     {
-        private Dictionary<string, List<string>> _dataDictionary = new Dictionary<string, List<string>>();
-        private Dictionary<string, List<string>> _manualDictionary = new Dictionary<string, List<string>>();
+        private Dictionary<string, List<string>> _dataDictionary;
+        private Dictionary<string, List<string>> _manualDictionary;
         public bool IsMalfunctioned;
 
         public Extendedfunc(Dictionary<string, List<string>> dataDictionary,
@@ -116,10 +116,11 @@ namespace SenderExtendedFunc
             string senderData = JsonConvert.SerializeObject(_dataDictionary, Formatting.Indented);
             Console.WriteLine(senderData);
         }
-
-        public void SendAlarmOnMalfunction(string alarmMessage)
+        
+        //Sends an alarm to the Receiever that the sensor is malfunctioning
+        /*public void SendAlarmOnMalfunction(string alarmMessage)
         {
-            //WriteAlarmMessageToDictionary(alarmMessage);
+            WriteAlarmMessageToDictionary(alarmMessage);
         }
 
         public void WriteAlarmMessageToDictionary(string message)
@@ -132,9 +133,9 @@ namespace SenderExtendedFunc
             {
                 _dataDictionary.Add("Alarm", new List<string>() { message });
             }
-        }
+        }*/
 
-        static void Main(string[] args)
+        static void Main()
         {
         }
     }
