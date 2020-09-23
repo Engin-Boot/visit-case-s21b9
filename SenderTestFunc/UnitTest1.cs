@@ -13,9 +13,8 @@ namespace SenderTestFunc
             //Passing condition
             bool fileExists = sg.CheckIfFileExists(correctFilePath);
             string noErrorMessageFromSender = sg.Message;
-            string expectedMessage = null;
             Assert.True(fileExists);
-            Assert.Equal(expectedMessage, noErrorMessageFromSender);
+            Assert.Null(noErrorMessageFromSender);
 
             //Failing condition
             string wrongFilePath =
@@ -36,9 +35,8 @@ namespace SenderTestFunc
             //Passing condition
             bool fileHasValidExtension = sg.CheckIfFileHasValidExtension(correctFileExtension);
             string noErrorMessageFromSender = sg.Message;
-            string expectedMessage = null;
             Assert.True(fileHasValidExtension);
-            Assert.Equal(expectedMessage, noErrorMessageFromSender);
+            Assert.Null(noErrorMessageFromSender);
 
             //Failing condition
             string wrongFileExtension =
@@ -58,9 +56,8 @@ namespace SenderTestFunc
             //Failing condition
             bool fileIsNotEmpty = sg.CheckIfFileIsEmpty(nonEmptyFile);
             string noErrorMessageFromSender = sg.Message;
-            string expectedMessage = null;
             Assert.False(fileIsNotEmpty);
-            Assert.Equal(expectedMessage, noErrorMessageFromSender);
+            Assert.Null(noErrorMessageFromSender);
 
             //Failing condition
             string emptyFile = @"D:\a\visit-case-s21b9\visit-case-s21b9\Sender\TestDataFiles\EmptyFile.csv";
@@ -79,9 +76,8 @@ namespace SenderTestFunc
             //Failing condition
             bool fileExists = sg.CheckIfFileIsInUse(fileNotInUse);
             string noErrorMessageFromSender = sg.Message;
-            string expectedMessage = null;
             Assert.False(fileExists);
-            Assert.Equal(expectedMessage, noErrorMessageFromSender);
+            Assert.Null(noErrorMessageFromSender);
 
             //Passing condition
             //string fileInUse = @"C:\Users\320087363\Desktop\Bootcamp\Visit-record-inputs.csv";
@@ -99,9 +95,8 @@ namespace SenderTestFunc
             //Failing condition
             bool dateIsComplete = sg.CheckIfAnyRowHasIncompleteData("1,12-10-2020,12:34:12");
             string noErrorMessageFromSender = sg.Message;
-            string expectedMessage = null;
             Assert.False(dateIsComplete);
-            Assert.Equal(expectedMessage, noErrorMessageFromSender);
+            Assert.Null(noErrorMessageFromSender);
 
             //Passing condition
             bool dateIsIncomplete = sg.CheckIfAnyRowHasIncompleteData("1,,12:34:12");
@@ -118,10 +113,9 @@ namespace SenderTestFunc
             //Passing condition
             bool datetimeIsValid = sg.CheckIfDateTimeIsValidAndHasValidFormat("1,12:34:12,12-10-2020,");
             string noErrorMessageFromSender = sg.Message;
-            string expectedMessage = null;
             Assert.True(datetimeIsValid);
-            Assert.Equal(expectedMessage, noErrorMessageFromSender);
-
+            Assert.Null(noErrorMessageFromSender);
+            
             //Failing condition1
             bool datetimeIsNotValid1 = sg.CheckIfDateTimeIsValidAndHasValidFormat("1,12:34:12,12-20-2020");
             string Invaliddatetime1 = "12-20-2020 12:34:12";
