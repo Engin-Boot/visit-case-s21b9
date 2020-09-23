@@ -120,7 +120,7 @@ namespace Sender
                 while (!streamReader.EndOfStream)
                 {
                     string output = streamReader.ReadLine();
-                    string[] columns = output?.Split(',');
+                    string[] columns = output.Split(',');
                     string date = columns[2];
                     string time = columns[1];
                     if (CheckIfDateTimeIsValidAndHasValidFormat(output))
