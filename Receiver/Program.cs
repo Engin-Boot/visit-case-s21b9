@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Receiver
 {
@@ -11,7 +6,7 @@ namespace Receiver
     {
         static void Functionalities(Database database)
         {
-            double[] avgPerHour = database.averageFootfallPerHour();
+            double[] avgPerHour = database.AverageFootfallPerHour();
 
             for (int i = 0; i < avgPerHour.Length; i++)
             {
@@ -20,7 +15,7 @@ namespace Receiver
 
             Console.WriteLine("Average per hour Found");
 
-            double[] avgDailyFootfall = database.averagePerDayForWeek();
+            double[] avgDailyFootfall = database.AveragePerDayForWeek();
             for (int i = 0; i < avgDailyFootfall.Length; i++)
             {
                 Console.WriteLine(i + " Day " + avgDailyFootfall[i]);
@@ -28,7 +23,7 @@ namespace Receiver
 
             Console.WriteLine("Average daily footfall per week Found");
 
-            int[] peakDaily = database.peakDailyFootfall();
+            int[] peakDaily = database.PeakDailyFootfall();
             Console.WriteLine("Peak daily footfall was " + peakDaily[0] + " '" + peakDaily[1] + "' days before");
 
         }
@@ -42,7 +37,7 @@ namespace Receiver
                 json += input;
                 //Console.WriteLine(input + i++);
             }
-            int populationSuccess = database.populateDatabase(json);
+            int populationSuccess = database.PopulateDatabase(json);
 
             if(populationSuccess == -1)
             {
