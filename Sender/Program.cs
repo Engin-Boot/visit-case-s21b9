@@ -189,7 +189,7 @@ namespace Sender
         }
 
         //Serialize dictionary object to json string and write it on the console
-        private void WriteFileContentsToConsole(string filepath)
+        private void WriteFileContentsToConsole()
         {
             string senderData = JsonConvert.SerializeObject(_dataDictionary, Formatting.Indented);
             Console.WriteLine(senderData);
@@ -218,7 +218,7 @@ namespace Sender
 
             if (!isMalfunctioned)
             {
-                senderObj.WriteFileContentsToConsole(filepathForActualData);
+                senderObj.WriteFileContentsToConsole();
             }
             else
             {
