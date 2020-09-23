@@ -1,5 +1,5 @@
 pushd "%~dp0"
 
-SenderTest\bin\Debug\SenderTest.exe
+dotnet test --collect:"XPlat Code Coverage"
 
 popd
