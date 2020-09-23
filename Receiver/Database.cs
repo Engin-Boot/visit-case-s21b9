@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
@@ -32,13 +32,13 @@ namespace Receiver
         #endregion
 
         #region Methods 
-        public void addDay(string s)
+        public void AddDay(string s)
         {
             Date d = new Date(s);
             days.Add(s, d);
         }
 
-        public void addNewEntryToDate(string newEntry, string date)
+        public void AddNewEntryToDate(string newEntry, string date)
         {
             if (days.ContainsKey(date))
             {
@@ -46,29 +46,28 @@ namespace Receiver
             }
             else
             {
-                addDay(date);
+                AddDay(date);
                 days[date].addNewEntry(newEntry);
             }
         }
 
-        public int[][] getLastNWeeksFootfall(int N)
+        public int[][] GetLastNWeeksFootfall(int n)
         {
-            int days = N * 7;
+            int days = n * 7;
             if (days > 0)
             {
-                int[][] lastWeek = getLastNDaysFootfall(days);
+                int[][] lastWeek = GetLastNDaysFootfall(days);
                 return lastWeek;
             }
-            int[][] err = new int[1][];
-            err[0] = new int[] { 1 };
+            int[][] err = new int[1][]{ new int[] { 1 } };
             return err;
         }
 
 
-        public int[][] getLastNDaysFootfall(int N)
+        public int[][] GetLastNDaysFootfall(int n)
         {
-            int[][] nDaysData = new int[N][];
-            for (int i = 0; i < N; i++)
+            int[][] nDaysData = new int[n][];
+            for (int i = 0; i < n; i++)
             {
                 DateTime temp = _currentDate.AddDays(-1 * (i));
                 string d = temp.ToString("dd-MM-yyyy");
@@ -88,7 +87,7 @@ namespace Receiver
             return nDaysData;
         }
 
-        public int populateDatabase(string data)
+        public int PopulateDatabase(string data)
         {
             Dictionary<string, List<string>> newDictionary;
             try
@@ -100,21 +99,21 @@ namespace Receiver
                 return -1;
             }
             String lastDate = "";
-            foreach (var VARIABLE in newDictionary)
+            foreach (var variable in newDictionary)
             {
-                string[] values = VARIABLE.Value.ToArray();
+                string[] values = variable.Value.ToArray();
                 for (int i = 0; i < values.Length; i++)
                 {
-                    addNewEntryToDate(values[i], VARIABLE.Key);
+                    AddNewEntryToDate(values[i], variable.Key);
                 }
                 //Console.WriteLine(VARIABLE.Key + "->" + string.Join(",", VARIABLE.Value));
-                lastDate = VARIABLE.Key;
+                lastDate = variable.Key;
             }
-            setCurrentDateAs(lastDate);
+            SetCurrentDateAs(lastDate);
             return 0;
         }
 
-        public void setCurrentDateAs(string date)
+        public void SetCurrentDateAs(string date)
         {
             try
             {
@@ -138,7 +137,7 @@ namespace Receiver
             return databaseString;
         }
 
-        public double[] getAverageOfAllArrays(int[][] arrays)
+        public double[] GetAverageOfAllArrays(int[][] arrays)
         {
             int len = arrays.Length;
             double[] result = new double[24];
@@ -153,14 +152,14 @@ namespace Receiver
             return result;
         }
 
-        public double[] averageFootfallPerHour()
+        public double[] AverageFootfallPerHour()
         {
-            int[][] last7days = getLastNWeeksFootfall(1);
-            double[] average = getAverageOfAllArrays(last7days);
+            int[][] last7days = GetLastNWeeksFootfall(1);
+            double[] average = GetAverageOfAllArrays(last7days);
             return average;
         }
 
-        public double[] getDailyTotal(int[][] arr)
+        public double[] GetDailyTotal(int[][] arr)
         {
             double[] total = new double[arr.Length];
             for (int i = 0; i < arr.Length; i++)
@@ -178,11 +177,11 @@ namespace Receiver
         }
 
 
-        public double[] averagePerDayForWeek()
+        public double[] AveragePerDayForWeek()
         {
             int NumberOfWeeks = 4;
-            int[][] lastWeeks = getLastNWeeksFootfall(NumberOfWeeks);
-            double[] dailyTotal = getDailyTotal(lastWeeks);
+            int[][] lastWeeks = GetLastNWeeksFootfall(NumberOfWeeks);
+            double[] dailyTotal = GetDailyTotal(lastWeeks);
             int daysInWeek = 7;
             double[] average = new double[daysInWeek];
 
@@ -201,11 +200,11 @@ namespace Receiver
 
         }
 
-        public int[] peakDailyFootfall()
+        public int[] PeakDailyFootfall()
         {
             int numDays = 30;
-            int[][] lastMonth = getLastNDaysFootfall(numDays);
-            double[] dailyTotal = getDailyTotal(lastMonth);
+            int[][] lastMonth = GetLastNDaysFootfall(numDays);
+            double[] dailyTotal = GetDailyTotal(lastMonth);
             double max = dailyTotal[0];
             int numberOfDaysBefore = 0;
             for (int i = 1; i < dailyTotal.Length; i++)
