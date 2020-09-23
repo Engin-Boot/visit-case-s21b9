@@ -32,39 +32,39 @@ namespace Receiver
         #endregion
 
         #region Methods 
-        public void AddDay(string s)
+        private void AddDay(string s)
         {
             Date d = new Date(s);
             days.Add(s, d);
         }
 
-        public void AddNewEntryToDate(string newEntry, string date)
+        private void AddNewEntryToDate(string newEntry, string date)
         {
             if (days.ContainsKey(date))
             {
-                days[date].addNewEntry(newEntry);
+                days[date].AddNewEntry(newEntry);
             }
             else
             {
                 AddDay(date);
-                days[date].addNewEntry(newEntry);
+                days[date].AddNewEntry(newEntry);
             }
         }
 
-        public int[][] GetLastNWeeksFootfall(int n)
+        private int[][] GetLastNWeeksFootfall(int n)
         {
-            int days = n * 7;
-            if (days > 0)
+            int numberOfDays = n * 7;
+            if (numberOfDays > 0)
             {
-                int[][] lastWeek = GetLastNDaysFootfall(days);
+                int[][] lastWeek = GetLastNDaysFootfall(numberOfDays);
                 return lastWeek;
             }
-            int[][] err = new int[1][]{ new int[] { 1 } };
+            int[][] err = new int[][]{ new int[] { 1 } };
             return err;
         }
 
 
-        public int[][] GetLastNDaysFootfall(int n)
+        private int[][] GetLastNDaysFootfall(int n)
         {
             int[][] nDaysData = new int[n][];
             for (int i = 0; i < n; i++)
@@ -102,9 +102,9 @@ namespace Receiver
             foreach (var variable in newDictionary)
             {
                 string[] values = variable.Value.ToArray();
-                for (int i = 0; i < values.Length; i++)
+                foreach(var val in values)
                 {
-                    AddNewEntryToDate(values[i], variable.Key);
+                    AddNewEntryToDate(val, variable.Key);
                 }
                 //Console.WriteLine(VARIABLE.Key + "->" + string.Join(",", VARIABLE.Value));
                 lastDate = variable.Key;
@@ -113,7 +113,7 @@ namespace Receiver
             return 0;
         }
 
-        public void SetCurrentDateAs(string date)
+        private void SetCurrentDateAs(string date)
         {
             try
             {
@@ -125,6 +125,7 @@ namespace Receiver
             }
         }
 
+        
         public string toString()
         {
             String databaseString = "";
@@ -136,8 +137,9 @@ namespace Receiver
             }
             return databaseString;
         }
+        
 
-        public double[] GetAverageOfAllArrays(int[][] arrays)
+        private double[] GetAverageOfAllArrays(int[][] arrays)
         {
             int len = arrays.Length;
             double[] result = new double[24];
@@ -159,7 +161,7 @@ namespace Receiver
             return average;
         }
 
-        public double[] GetDailyTotal(int[][] arr)
+        private double[] GetDailyTotal(int[][] arr)
         {
             double[] total = new double[arr.Length];
             for (int i = 0; i < arr.Length; i++)
