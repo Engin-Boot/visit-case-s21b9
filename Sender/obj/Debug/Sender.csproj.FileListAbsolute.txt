@@ -21,3 +21,6 @@ C:\Users\320106573\source\repos\CaseStudy\Sender\obj\Debug\Sender.csprojAssembly
 C:\Users\320087363\visit-case-s21b9\Sender\bin\Debug\SenderExtendedFunc.exe
 C:\Users\320087363\visit-case-s21b9\Sender\bin\Debug\SenderExtendedFunc.pdb
 C:\Users\320087363\visit-case-s21b9\Sender\bin\Debug\SenderExtendedFunc.exe.config
+C:\Users\320106573\source\repos\CaseStudy\Sender\bin\Debug\SenderExtendedFunc.exe
+C:\Users\320106573\source\repos\CaseStudy\Sender\bin\Debug\SenderExtendedFunc.pdb
+C:\Users\320106573\source\repos\CaseStudy\Sender\bin\Debug\SenderExtendedFunc.exe.config
