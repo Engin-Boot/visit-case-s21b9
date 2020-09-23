@@ -21,3 +21,13 @@ C:\Users\320087363\visit-case-s21b9\Sender\obj\Debug\Sender.csproj.CoreCompileIn
 C:\Users\320087363\visit-case-s21b9\Sender\obj\Debug\Sender.csproj.CopyComplete
 C:\Users\320087363\visit-case-s21b9\Sender\obj\Debug\Sender.exe
 C:\Users\320087363\visit-case-s21b9\Sender\obj\Debug\Sender.pdb
+C:\Users\320106573\source\repos\CaseStudy\Sender\bin\Debug\Newtonsoft.Json.dll
+C:\Users\320106573\source\repos\CaseStudy\Sender\bin\Debug\Newtonsoft.Json.xml
+C:\Users\320106573\source\repos\CaseStudy\Sender\obj\Debug\Sender.csproj.CopyComplete
+C:\Users\320106573\source\repos\CaseStudy\Sender\obj\Debug\Sender.csprojAssemblyReference.cache
+C:\Users\320087363\visit-case-s21b9\Sender\bin\Debug\SenderExtendedFunc.exe
+C:\Users\320087363\visit-case-s21b9\Sender\bin\Debug\SenderExtendedFunc.pdb
+C:\Users\320087363\visit-case-s21b9\Sender\bin\Debug\SenderExtendedFunc.exe.config
+C:\Users\320106573\source\repos\CaseStudy\Sender\bin\Debug\SenderExtendedFunc.exe
+C:\Users\320106573\source\repos\CaseStudy\Sender\bin\Debug\SenderExtendedFunc.pdb
+C:\Users\320106573\source\repos\CaseStudy\Sender\bin\Debug\SenderExtendedFunc.exe.config
