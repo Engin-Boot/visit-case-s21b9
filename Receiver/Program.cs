@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Receiver
 {
@@ -27,7 +27,7 @@ namespace Receiver
             Console.WriteLine("Peak daily footfall was " + peakDaily[0] + " '" + peakDaily[1] + "' days before");
 
         }
-        static void Main(string[] args)
+        static void Main()
         {
             string input;
             string json = "";
