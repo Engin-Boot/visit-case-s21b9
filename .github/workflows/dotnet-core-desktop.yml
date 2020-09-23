@@ -124,9 +124,4 @@ jobs:
     - name: Run the App
       shell: cmd
       run: call run.bat 
-    
-    - name: Run the Test
-      shell: cmd
-      run: call Test.bat 
-      
 
