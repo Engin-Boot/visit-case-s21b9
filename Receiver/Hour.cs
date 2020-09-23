@@ -1,8 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Receiver
 {
@@ -11,12 +9,15 @@ namespace Receiver
         #region Data Members
         int hourNumber;
         List<string> entries;
-        int totalFootfall;
+        int _totalFootfall;
 
         #region Property 
         public int TotalFootfall
         {
-            get { return totalFootfall; }
+            get 
+            { 
+                return _totalFootfall; 
+            }
         }
         #endregion
 
@@ -27,15 +28,15 @@ namespace Receiver
         {
             hourNumber = h;
             entries = new List<string>();
-            totalFootfall = 0;
+            _totalFootfall = 0;
         }
         #endregion
 
         #region Methods
-        public void addNewEntry(string timeOfEntry)
+        public void AddNewEntry(string timeOfEntry)
         {
             entries.Add(timeOfEntry);
-            totalFootfall++;
+            _totalFootfall++;
         }
 
         public string toString()
