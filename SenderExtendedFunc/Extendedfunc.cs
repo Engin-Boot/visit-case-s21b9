@@ -1,42 +1,38 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SenderExtendedFunc
 {
     public class Extendedfunc
     {
-        private Dictionary<string, List<string>> dataDictionary = new Dictionary<string, List<string>>();
-        private Dictionary<string, List<string>> manualDictionary = new Dictionary<string, List<string>>();
+        private Dictionary<string, List<string>> _dataDictionary = new Dictionary<string, List<string>>();
+        private Dictionary<string, List<string>> _manualDictionary = new Dictionary<string, List<string>>();
         public bool IsMalfunctioned;
 
         public Extendedfunc(Dictionary<string, List<string>> dataDictionary,
             Dictionary<string, List<string>> manualDictionary)
         {
-            this.dataDictionary = dataDictionary;
-            this.manualDictionary = manualDictionary;
+            this._dataDictionary = dataDictionary;
+            this._manualDictionary = manualDictionary;
         }
 
         public void SendListOfHoursToCheckForMalfunctionality()
         {
             int count = -1;
-            foreach (var VARIABLE in manualDictionary)
+            foreach (var variable in _manualDictionary)
             {
                 count++;
-                if (dataDictionary.ContainsKey(VARIABLE.Key))
+                if (_dataDictionary.ContainsKey(variable.Key))
                 {
-                    ListOfHoursToTimeSpan(dataDictionary[VARIABLE.Key], VARIABLE.Value, VARIABLE.Key);
+                    ListOfHoursToTimeSpan(_dataDictionary[variable.Key], variable.Value, variable.Key);
                 }
                 else
                 {
                     this.IsMalfunctioned = true;
-                    SendAlarmOnMalfunction("Sensor is malfunctioning for the whole day on " + VARIABLE.Key + " hence reconciling data from manual log");
-                    ReconcileDataForWholeDay(VARIABLE.Key, VARIABLE.Value, count);
+                    SendAlarmOnMalfunction("Sensor is malfunctioning for the whole day on " + variable.Key + " hence reconciling data from manual log");
+                    ReconcileDataForWholeDay(variable.Key, variable.Value, count);
                 }
             }
         }
@@ -45,7 +41,6 @@ namespace SenderExtendedFunc
         {
             List<TimeSpan> vt = new List<TimeSpan>();
             List<TimeSpan> mt = new List<TimeSpan>();
-            string[] formats = { "HH:mm:ss", "H:mm:ss" };
 
             for (int i = 0; i < v.Count; i++)
             {
@@ -106,20 +101,19 @@ namespace SenderExtendedFunc
                 newv.Add(v[i].ToString());
             }
 
-            dataDictionary[key] = newv;
+            _dataDictionary[key] = newv;
         }
 
         public void ReconcileDataForWholeDay(string key, List<string> m, int count)
         {
-            List<KeyValuePair<string, List<string>>> list = dataDictionary.ToList();
+            List<KeyValuePair<string, List<string>>> list = _dataDictionary.ToList();
             list.Insert(count, new KeyValuePair<string, List<string>>(key, m));
-            dataDictionary = list.ToDictionary(pair => pair.Key, pair => pair.Value);
+            _dataDictionary = list.ToDictionary(pair => pair.Key, pair => pair.Value);
         }
 
         public void WriteFileContentsToConsole()
         {
-            string senderData = "";
-            senderData = JsonConvert.SerializeObject(dataDictionary, Formatting.Indented);
+            string senderData = JsonConvert.SerializeObject(_dataDictionary, Formatting.Indented);
             Console.WriteLine(senderData);
         }
 
@@ -130,13 +124,13 @@ namespace SenderExtendedFunc
 
         public void WriteAlarmMessageToDictionary(string message)
         {
-            if (dataDictionary.ContainsKey("Alarm"))
+            if (_dataDictionary.ContainsKey("Alarm"))
             {
-                dataDictionary["Alarm"].Add(message);
+                _dataDictionary["Alarm"].Add(message);
             }
             else
             {
-                dataDictionary.Add("Alarm", new List<string>() { message });
+                _dataDictionary.Add("Alarm", new List<string>() { message });
             }
         }
 
